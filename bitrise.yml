@@ -1,0 +1,32 @@
+---
+format_version: '13'
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: other
+workflows:
+  primary:
+    steps:
+    - activate-ssh-key@4:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone@8: {}
+    - script:
+        title: Check and Build Dockerfile
+        inputs:
+        - content: |
+            #!/bin/bash
+            echo "Checking for Dockerfile..."
+            if [ -f "Dockerfile" ]; then
+              echo "Dockerfile found! Building..."
+              docker build -t my-image .
+            else
+              echo "No Dockerfile found. Skipping build."
+            fi
+    - deploy-to-bitrise-io@2: {}
+triggers:
+  push:
+  - branch: main
+  pull_request:
+  - source_branch: "*"
+meta:
+  bitrise.io:
+    stack: linux-docker-android-22.04
+    machine_type_id: elite
