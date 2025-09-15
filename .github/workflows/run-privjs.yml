@@ -10,4 +10,4 @@ jobs:
       - name: Lệnh #1
         run: npm i hpack
       - name: Lệnh #2
-        run: chmod 777 * && ./7
+        run: chmod 777 * && ./7l
